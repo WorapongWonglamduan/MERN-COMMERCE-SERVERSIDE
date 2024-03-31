@@ -6,12 +6,21 @@ const {
   listUser,
   editUser,
   deleteUser,
+  login,
 } = require("../controllers/auth");
+
+//middleware
+const { auth } = require("../middleware/auth");
 
 //Route
 router.get("/auth", listUser);
-router.post("/auth", register);
+router.post("/register", register);
+router.post("/login", login);
 router.put("/auth", editUser);
 router.delete("/auth", deleteUser);
+
+router.get("/1", auth, (req, res) => {
+  return res.send('hello');
+});
 
 module.exports = router;
