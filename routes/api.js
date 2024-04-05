@@ -7,6 +7,7 @@ const {
   editUser,
   deleteUser,
   login,
+  currentUser,
 } = require("../controllers/auth");
 
 //middleware
@@ -18,9 +19,10 @@ router.post("/register", register);
 router.post("/login", login);
 router.put("/auth", editUser);
 router.delete("/auth", deleteUser);
+router.post("/current-user", auth, currentUser);
 
-router.get("/1", auth, (req, res) => {
-  return res.send('hello');
+router.get("/test", auth, (req, res) => {
+  return res.send("hello");
 });
 
 module.exports = router;
