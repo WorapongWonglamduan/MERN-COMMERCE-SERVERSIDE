@@ -18,6 +18,7 @@ const {
   updateUsers,
   deleteUsers,
   changeStatus,
+  changeRole,
 } = require("../controllers/users");
 
 //Route
@@ -33,8 +34,9 @@ router.post("/current-admin", auth, isAdmin, currentUser);
 router.get("/users", auth, isAdmin, listUsers);
 router.get("/users/:id", editUsers);
 router.put("/users/:id", updateUsers);
-router.delete("/users/:id", deleteUsers);
+router.delete("/users/:id", auth, isAdmin, deleteUsers);
 
 router.post("/change-status", auth, isAdmin, changeStatus);
+router.post("/change-role", auth, isAdmin, changeRole);
 
 module.exports = router;

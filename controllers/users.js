@@ -35,7 +35,7 @@ exports.deleteUsers = async (req, res) => {
   try {
     const id = req.params.id;
     const user = await User.findOneAndDelete({ _id: id });
-    return res.send("hello delete users");
+    return res.send(user);
   } catch (error) {
     console.error(error);
     return res.status(500).send("Server Error");
@@ -49,8 +49,25 @@ exports.changeStatus = async (req, res) => {
       { _id: req.body.id },
       { enabled: req.body.enabled }
     )
-      .select("username enabled")
+      .select("-password")
       .exec();
+    return res.send(user);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send("Server Error");
+  }
+};
+exports.changeRole = async (req, res) => {
+  try {
+    console.log("req ->", req.body);
+
+    const user = await User.findOneAndUpdate(
+      { _id: req.body.id },
+      { role: req.body.role }
+    )
+      .select("-password")
+      .exec();
+
     return res.send(user);
   } catch (error) {
     console.error(error);
