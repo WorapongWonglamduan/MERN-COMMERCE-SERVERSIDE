@@ -25,7 +25,16 @@ exports.editUsers = async (req, res) => {
 };
 exports.updateUsers = async (req, res) => {
   try {
-    return res.send("hello update users");
+    var { id, password } = req.body.values;
+    const salt = await bcrypt.genSalt(10);
+
+    var enPassword = await bcrypt.hash(password, salt);
+    const user = await User.findOneAndUpdate(
+      { _id: id },
+      { password: enPassword }
+    );
+
+    return res.send(user);
   } catch (error) {
     console.error(error);
     return res.status(500).send("Server Error");
@@ -35,7 +44,7 @@ exports.deleteUsers = async (req, res) => {
   try {
     const id = req.params.id;
     const user = await User.findOneAndDelete({ _id: id });
-    return res.send(user);
+    return res.send("hello delete users");
   } catch (error) {
     console.error(error);
     return res.status(500).send("Server Error");
