@@ -17,6 +17,7 @@ const {
   editUsers,
   updateUsers,
   deleteUsers,
+  changeStatus,
 } = require("../controllers/users");
 
 //Route
@@ -33,5 +34,7 @@ router.get("/users", auth, isAdmin, listUsers);
 router.get("/users/:id", editUsers);
 router.put("/users/:id", updateUsers);
 router.delete("/users/:id", deleteUsers);
+
+router.post("/change-status", auth, isAdmin, changeStatus);
 
 module.exports = router;

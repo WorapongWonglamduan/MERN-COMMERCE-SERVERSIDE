@@ -41,3 +41,19 @@ exports.deleteUsers = async (req, res) => {
     return res.status(500).send("Server Error");
   }
 };
+exports.changeStatus = async (req, res) => {
+  try {
+    console.log("req ->", req.body);
+
+    const user = await User.findOneAndUpdate(
+      { _id: req.body.id },
+      { enabled: req.body.enabled }
+    )
+      .select("username enabled")
+      .exec();
+    return res.send(user);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send("Server Error");
+  }
+};
