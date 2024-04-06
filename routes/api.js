@@ -29,7 +29,7 @@ router.delete("/auth", deleteUser);
 router.post("/current-user", auth, currentUser);
 router.post("/current-admin", auth, isAdmin, currentUser);
 //User
-router.get("/users", listUsers);
+router.get("/users", auth, isAdmin, listUsers);
 router.get("/users/:id", editUsers);
 router.put("/users/:id", updateUsers);
 router.delete("/users/:id", deleteUsers);

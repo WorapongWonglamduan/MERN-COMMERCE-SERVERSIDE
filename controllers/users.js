@@ -6,8 +6,8 @@ exports.listUsers = async (req, res) => {
   try {
     const user = await User.find({}).select("-password").exec();
 
-    const obj = { data: user, message: "hello" };
-    return res.send(obj);
+    // const obj = { data: user, message: "hello" };
+    return res.send(user);
   } catch (error) {
     console.error(error);
     return res.status(500).send("Server Error");
