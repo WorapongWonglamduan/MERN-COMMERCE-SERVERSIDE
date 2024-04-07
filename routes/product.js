@@ -5,7 +5,7 @@ const { auth, isAdmin } = require("../middleware/auth");
 const { create, list } = require("../controllers/product");
 //Route
 //Product
-router.post("/product", create);
+router.post("/product", auth, isAdmin, create);
 router.get("/product", list);
 
 module.exports = router;

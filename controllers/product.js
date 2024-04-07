@@ -16,7 +16,7 @@ exports.create = async (req, res) => {
     return res.send(product);
   } catch (error) {
     console.error(error);
-    return res.status(500).send("Server Error");
+    return res.status(500).send("Create Product Error !!");
   }
 };
 // exports.edit = async (req, res) => {
