@@ -1,6 +1,9 @@
+const Category = require("../models/Category");
+
 exports.list = async (req, res) => {
   try {
-    return res.send("list Category");
+    const category = await Category.find({}).exec();
+    return res.send(category);
   } catch (error) {
     console.error(error);
     return res.status(500).send("Server Error");
@@ -9,7 +12,9 @@ exports.list = async (req, res) => {
 
 exports.create = async (req, res) => {
   try {
-    return res.send("create Category");
+    const { name } = req.body;
+    const category = await new Category({ name: name }).save();
+    return res.send(category);
   } catch (error) {
     console.error(error);
     return res.status(500).send("Server Error");
@@ -17,7 +22,9 @@ exports.create = async (req, res) => {
 };
 exports.edit = async (req, res) => {
   try {
-    return res.send("edit Category");
+    const { id } = req.params;
+    const category = await Category.findOne({ _id: id });
+    return res.send(category);
   } catch (error) {
     console.error(error);
     return res.status(500).send("Server Error");
@@ -25,7 +32,13 @@ exports.edit = async (req, res) => {
 };
 exports.update = async (req, res) => {
   try {
-    return res.send("update Category");
+    const { name } = req.body;
+    const { id } = req.params;
+    const category = await Category.findOneAndUpdate(
+      { _id: id },
+      { name: name }
+    );
+    return res.send(category);
   } catch (error) {
     console.error(error);
     return res.status(500).send("Server Error");
@@ -33,7 +46,9 @@ exports.update = async (req, res) => {
 };
 exports.remove = async (req, res) => {
   try {
-    return res.send("delete Category");
+    const id = req.params.id;
+    const category = await Category.findOneAndDelete({ _id: id });
+    return res.send(category);
   } catch (error) {
     console.error(error);
     return res.status(500).send("Server Error");
