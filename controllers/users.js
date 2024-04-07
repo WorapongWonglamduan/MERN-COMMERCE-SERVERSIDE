@@ -2,7 +2,7 @@ const bcrypt = require("bcryptjs");
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 
-exports.listUsers = async (req, res) => {
+exports.list = async (req, res) => {
   try {
     const user = await User.find({}).select("-password").exec();
 
@@ -13,7 +13,7 @@ exports.listUsers = async (req, res) => {
     return res.status(500).send("Server Error");
   }
 };
-exports.editUsers = async (req, res) => {
+exports.edit = async (req, res) => {
   try {
     const id = req.params.id;
     const user = await User.findOne({ _id: id }).select("-password").exec();
@@ -23,7 +23,7 @@ exports.editUsers = async (req, res) => {
     return res.status(500).send("Server Error");
   }
 };
-exports.updateUsers = async (req, res) => {
+exports.update = async (req, res) => {
   try {
     var { id, password } = req.body.values;
     const salt = await bcrypt.genSalt(10);
@@ -40,7 +40,7 @@ exports.updateUsers = async (req, res) => {
     return res.status(500).send("Server Error");
   }
 };
-exports.deleteUsers = async (req, res) => {
+exports.remove = async (req, res) => {
   try {
     const id = req.params.id;
     const user = await User.findOneAndDelete({ _id: id });

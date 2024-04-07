@@ -72,28 +72,3 @@ exports.currentUser = async (req, res) => {
     return res.status(500).send("Server Error");
   }
 };
-
-exports.listUser = async (req, res) => {
-  try {
-    return res.send("List Get User");
-  } catch (error) {
-    console.error(error);
-    return res.status(500).send("Server Error");
-  }
-};
-exports.editUser = async (req, res) => {
-  try {
-    return res.send("Edit User");
-  } catch (error) {
-    console.error(error);
-    return res.status(500).send("Server Error");
-  }
-};
-exports.deleteUser = async (req, res) => {
-  try {
-    return res.send("Delete User");
-  } catch (error) {
-    console.error(error);
-    return res.status(500).send("Server Error");
-  }
-};
