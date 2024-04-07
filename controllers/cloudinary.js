@@ -7,17 +7,12 @@ cloudinary.config({
   secure: true,
 });
 
-const options = {
-  use_filename: true,
-  unique_filename: false,
-  overwrite: true,
-  public_id: Date.now(),
-  resource_type: "auto",
-};
-
 exports.createImage = async (req, res) => {
   try {
-    const result = await cloudinary.uploader.upload(req.body.image, options);
+    const result = await cloudinary.uploader.upload(req.body.image, {
+      public_id: Date.now(),
+      resource_type: "auto",
+    });
     return res.send(result);
   } catch (error) {
     console.error(error);
