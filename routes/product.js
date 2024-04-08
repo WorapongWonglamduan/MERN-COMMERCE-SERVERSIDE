@@ -8,6 +8,7 @@ const {
   remove,
   edit,
   update,
+  listBy,
 } = require("../controllers/product");
 //Route
 //Product
@@ -18,5 +19,7 @@ router.delete("/product/:id", auth, isAdmin, remove);
 //edit
 router.get("/products/:id", edit);
 router.put("/product/:id", auth, isAdmin, update);
+
+router.post("/product-by", listBy);
 
 module.exports = router;

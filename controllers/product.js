@@ -57,3 +57,18 @@ exports.remove = async (req, res) => {
     return res.status(500).send("Server Error");
   }
 };
+
+exports.listBy = async (req, res) => {
+  try {
+    const { sort, order, limit } = req.body;
+
+    const product = await Product.find({})
+      .populate("category")
+      .limit(limit)
+      .sort([[sort, order]]);
+    return res.send(product);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send("List By Product Error !!");
+  }
+};
