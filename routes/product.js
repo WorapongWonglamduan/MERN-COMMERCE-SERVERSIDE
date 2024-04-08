@@ -6,6 +6,6 @@ const { create, list } = require("../controllers/product");
 //Route
 //Product
 router.post("/product", auth, isAdmin, create);
-router.get("/product", list);
+router.get("/product/:count", list);
 
 module.exports = router;

@@ -2,7 +2,11 @@ const Product = require("../models/Products");
 
 exports.list = async (req, res) => {
   try {
-    const product = await Product.find({}).populate("category").exec();
+    const count = parseInt(req.params.count);
+    const product = await Product.find({})
+      .populate("category")
+      .limit(count)
+      .sort([["createdAt", "desc"]]);
     return res.send(product);
   } catch (error) {
     console.error(error);
