@@ -23,34 +23,37 @@ exports.create = async (req, res) => {
     return res.status(500).send("Create Product Error !!");
   }
 };
-// exports.edit = async (req, res) => {
-//   try {
-//     const { id } = req.params;
-//     const product = await Product.findOne({ _id: id });
-//     return res.send(product);
-//   } catch (error) {
-//     console.error(error);
-//     return res.status(500).send("Server Error");
-//   }
-// };
-// exports.update = async (req, res) => {
-//   try {
-//     const { name } = req.body;
-//     const { id } = req.params;
-//     const product = await Product.findOneAndUpdate({ _id: id }, { name: name });
-//     return res.send(product);
-//   } catch (error) {
-//     console.error(error);
-//     return res.status(500).send("Server Error");
-//   }
-// };
-// exports.remove = async (req, res) => {
-//   try {
-//     const id = req.params.id;
-//     const product = await Product.findOneAndDelete({ _id: id });
-//     return res.send(product);
-//   } catch (error) {
-//     console.error(error);
-//     return res.status(500).send("Server Error");
-//   }
-// };
+exports.edit = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const product = await Product.findOne({ _id: id })
+      .populate("category")
+      .exec();
+    return res.send(product);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send("Server Error");
+  }
+};
+exports.update = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const product = await Product.findOneAndUpdate({ _id: id }, req.body, {
+      new: true,
+    }).exec();
+    return res.send(product);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send("Server Error");
+  }
+};
+exports.remove = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const product = await Product.findByIdAndDelete({ _id: id }).exec();
+    return res.send(product);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send("Server Error");
+  }
+};
