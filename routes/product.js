@@ -9,6 +9,7 @@ const {
   edit,
   update,
   listBy,
+  searchFilters,
 } = require("../controllers/product");
 //Route
 //Product
@@ -21,5 +22,6 @@ router.get("/products/:id", edit);
 router.put("/product/:id", auth, isAdmin, update);
 
 router.post("/product-by", listBy);
+router.post("/search/filters", searchFilters);
 
 module.exports = router;

@@ -72,3 +72,35 @@ exports.listBy = async (req, res) => {
     return res.status(500).send("List By Product Error !!");
   }
 };
+
+const handleQuery = async (req, res, query) => {
+  let products = await Product.find({ $text: { $search: query } }).populate(
+    "category",
+    "_id name"
+  );
+
+  return res.send(products);
+};
+const handlePrice = async (req, res, price) => {
+  let products = await Product.find({
+    price: { $gte: price[0], $lte: price[1] },
+  }).populate("category", "_id name");
+
+  return res.send(products);
+};
+exports.searchFilters = async (req, res) => {
+  try {
+    const { query, price } = req.body;
+
+    if (query) {
+      handleQuery(req, res, query);
+    }
+    //price[0,200]
+    if (price !== undefined) {
+      handlePrice(req, res, price);
+    }
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send("Search Product Error !!");
+  }
+};
