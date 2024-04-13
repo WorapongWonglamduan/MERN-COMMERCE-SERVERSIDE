@@ -73,8 +73,8 @@ exports.listBy = async (req, res) => {
   }
 };
 
-const handleQuery = async (req, res, query) => {
-  let products = await Product.find({ $text: { $search: query } }).populate(
+const handleQuery = async (req, res, text) => {
+  let products = await Product.find({ $text: { $search: text } }).populate(
     "category",
     "_id name"
   );
@@ -88,16 +88,27 @@ const handlePrice = async (req, res, price) => {
 
   return res.send(products);
 };
+const handleCategory = async (req, res, category) => {
+  let products = await Product.find({
+    category,
+  }).populate("category", "_id name");
+
+  return res.send(products);
+};
 exports.searchFilters = async (req, res) => {
   try {
-    const { query, price } = req.body;
+    const { text, price, category } = req.body;
 
-    if (query) {
-      handleQuery(req, res, query);
+    if (text) {
+      handleQuery(req, res, text);
     }
     //price[0,200]
     if (price !== undefined) {
       handlePrice(req, res, price);
+    }
+    //[_id,_id]
+    if (category) {
+      handleCategory(req, res, category);
     }
   } catch (error) {
     console.error(error);
