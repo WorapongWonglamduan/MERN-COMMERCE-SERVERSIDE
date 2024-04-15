@@ -133,3 +133,11 @@ exports.getUserCart = async (req, res) => {
     return res.status(500).send("Server Error");
   }
 };
+exports.saveAddress = async (req, res) => {
+  try {
+    return res.send('dd');
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send("Server Error");
+  }
+};

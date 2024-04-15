@@ -11,6 +11,7 @@ const {
   changeRole,
   userCart,
   getUserCart,
+  saveAddress,
 } = require("../controllers/users");
 
 //Route
@@ -25,5 +26,6 @@ router.post("/change-status", auth, isAdmin, changeStatus);
 router.post("/change-role", auth, isAdmin, changeRole);
 router.post("/user/cart", auth, userCart);
 router.get("/user/cart", auth, getUserCart);
+router.post("/user/address", auth, saveAddress);
 
 module.exports = router;
