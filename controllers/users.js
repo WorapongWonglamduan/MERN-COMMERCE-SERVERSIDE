@@ -3,6 +3,7 @@ const User = require("../models/User");
 const Product = require("../models/Products");
 const Cart = require("../models/Cart");
 const jwt = require("jsonwebtoken");
+const Order = require("../models/Order");
 
 exports.list = async (req, res) => {
   try {
@@ -135,7 +136,30 @@ exports.getUserCart = async (req, res) => {
 };
 exports.saveAddress = async (req, res) => {
   try {
-    return res.send('dd');
+    const userAddress = await User.findOneAndUpdate(
+      {
+        username: req.user.username,
+      },
+      { address: req.body.address }
+    ).exec();
+    return res.json({ message: "update success" });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send("Server Error");
+  }
+};
+exports.saveOrder = async (req, res) => {
+  try {
+    let user = await User.findOne({ username: req.user.username }).exec();
+    let userCart = await Cart.findOne({ orderBy: user._id }).exec();
+
+    let order = await new Order({
+      products: userCart.products,
+      orderBy: user._id,
+      cartTotal: userCart.cartTotal,
+    }).save();
+
+    return res.send(userCart);
   } catch (error) {
     console.error(error);
     return res.status(500).send("Server Error");

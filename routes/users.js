@@ -12,6 +12,7 @@ const {
   userCart,
   getUserCart,
   saveAddress,
+  saveOrder,
 } = require("../controllers/users");
 
 //Route
@@ -27,5 +28,6 @@ router.post("/change-role", auth, isAdmin, changeRole);
 router.post("/user/cart", auth, userCart);
 router.get("/user/cart", auth, getUserCart);
 router.post("/user/address", auth, saveAddress);
+router.post("/user/order", auth, saveOrder);
 
 module.exports = router;
