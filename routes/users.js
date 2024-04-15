@@ -9,6 +9,8 @@ const {
   remove,
   changeStatus,
   changeRole,
+  userCart,
+  getUserCart,
 } = require("../controllers/users");
 
 //Route
@@ -21,5 +23,7 @@ router.delete("/users/:id", auth, isAdmin, remove);
 
 router.post("/change-status", auth, isAdmin, changeStatus);
 router.post("/change-role", auth, isAdmin, changeRole);
+router.post("/user/cart", auth, userCart);
+router.get("/user/cart", auth, getUserCart);
 
 module.exports = router;
