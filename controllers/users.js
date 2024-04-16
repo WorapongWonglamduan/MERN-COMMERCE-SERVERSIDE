@@ -185,3 +185,52 @@ exports.emptyCart = async (req, res) => {
     return res.status(500).send("Remove Cart Error");
   }
 };
+exports.addToWishList = async (req, res) => {
+  try {
+    const { productId } = req.body;
+    const user = await User.findOneAndUpdate(
+      {
+        username: req.user.username,
+      },
+      { $addToSet: { wishlist: productId } }
+    ).exec();
+
+    return res.send(user);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send("Add Wishlist Error");
+  }
+};
+exports.getWishList = async (req, res) => {
+  try {
+    let list = await User.findOne({
+      username: req.user.username,
+    })
+      .select("wishlist")
+      .populate("wishlist")
+      .exec();
+
+    return res.json(list);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send("Get Wishlist Error");
+  }
+};
+exports.removeWishList = async (req, res) => {
+  try {
+    const { productId } = req.params;
+
+    console.log("req.params--->", req.params);
+    let user = await User.findOneAndUpdate(
+      { username: req.user.username },
+      {
+        $pull: { wishlist: productId },
+      }
+    ).exec();
+
+    return res.send(user);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send("Remove Wishlist Error");
+  }
+};
