@@ -175,3 +175,13 @@ exports.saveOrder = async (req, res) => {
     return res.status(500).send("Server Error");
   }
 };
+exports.emptyCart = async (req, res) => {
+  try {
+    const user = await User.findOne({ username: req.user.username }).exec();
+    const empty = await Cart.findOneAndDelete({ orderBy: user._id }).exec();
+    return res.send(empty);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send("Remove Cart Error");
+  }
+};

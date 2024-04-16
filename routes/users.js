@@ -13,6 +13,7 @@ const {
   getUserCart,
   saveAddress,
   saveOrder,
+  emptyCart,
 } = require("../controllers/users");
 
 //Route
@@ -27,6 +28,7 @@ router.post("/change-status", auth, isAdmin, changeStatus);
 router.post("/change-role", auth, isAdmin, changeRole);
 router.post("/user/cart", auth, userCart);
 router.get("/user/cart", auth, getUserCart);
+router.delete("/user/cart", auth, emptyCart);
 router.post("/user/address", auth, saveAddress);
 router.post("/user/order", auth, saveOrder);
 
