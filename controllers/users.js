@@ -159,7 +159,17 @@ exports.saveOrder = async (req, res) => {
       cartTotal: userCart.cartTotal,
     }).save();
 
-    return res.send(userCart);
+    let bulkOption = userCart.products.map((item) => {
+      return {
+        updateOne: {
+          filter: { _id: item.product._id },
+          update: { $inc: { quantity: -item.count, sold: item.count } },
+        },
+      };
+    });
+    let updated = await Product.bulkWrite(bulkOption, {});
+
+    return res.send(updated);
   } catch (error) {
     console.error(error);
     return res.status(500).send("Server Error");
