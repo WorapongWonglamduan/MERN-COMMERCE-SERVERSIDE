@@ -17,6 +17,7 @@ const {
   getWishList,
   addToWishList,
   removeWishList,
+  getOrders,
 } = require("../controllers/users");
 
 //Route
@@ -34,6 +35,7 @@ router.get("/user/cart", auth, getUserCart);
 router.delete("/user/cart", auth, emptyCart);
 router.post("/user/address", auth, saveAddress);
 router.post("/user/order", auth, saveOrder);
+router.get("/user/orders", auth, getOrders);
 
 router.get("/user/wishlist", auth, getWishList);
 router.post("/user/wishlist", auth, addToWishList);

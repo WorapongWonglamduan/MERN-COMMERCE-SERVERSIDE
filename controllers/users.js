@@ -234,3 +234,18 @@ exports.removeWishList = async (req, res) => {
     return res.status(500).send("Remove Wishlist Error");
   }
 };
+
+exports.getOrders = async (req, res) => {
+  try {
+    const user = await User.findOne({ username: req.user.username }).exec();
+
+    let order = await Order.find({ orderBy: user._id })
+      .populate("products.product")
+      .exec();
+
+    return res.json(order);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send("Get Orders Error");
+  }
+};
