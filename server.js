@@ -20,6 +20,8 @@ app.use(cors());
 //localhost:4001/api/
 //#1
 // app.use("/api", require("./routes/api"));
+
+// sample
 app.get("/api/test", (req, res) => {
   return res.send("Hello Worapong");
 });
