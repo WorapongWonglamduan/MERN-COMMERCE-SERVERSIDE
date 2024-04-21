@@ -21,12 +21,15 @@ const connectDb = async () => {
     await mongoose.connect(mongoURI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      // bufferCommands: false,
+      useCreateIndex: true, // Enable createIndex() for index creation
+      // bufferCommands: false, // Experiment with buffering based on your needs
     });
     console.log("Connected to MongoDB");
   } catch (error) {
-    process.exit(1);
     console.error("Error connecting to MongoDB:", error);
+    // Retry connection or gracefully handle the error based on your application's requirements
+    // Example: retryConnection();
+    // Or: process.exit(1);
   }
 };
 
