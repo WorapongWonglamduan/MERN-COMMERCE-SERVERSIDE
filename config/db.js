@@ -53,6 +53,7 @@ const connectDb = async () => {
   } finally {
     // Ensures that the client will close when you finish/error
     await client.close();
+    console.log("close to MongoDB!");
   }
 };
 module.exports = connectDb;
