@@ -3,7 +3,7 @@ const Category = require("../models/Category");
 exports.list = async (req, res) => {
   try {
     const category = await Category.find({}).exec();
-    return res.json(category);
+    return res.send(category);
   } catch (error) {
     console.error(error);
     return res.status(500).send("Category Server Error");
