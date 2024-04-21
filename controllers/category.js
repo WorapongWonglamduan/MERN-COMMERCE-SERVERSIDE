@@ -2,8 +2,8 @@ const Category = require("../models/Category");
 
 exports.list = async (req, res) => {
   try {
-    const category = await Category.find({}).exec();
-    return res.send(category);
+    const categories = await Category.find({}).maxTimeMS(30000);
+    return res.send(categories);
   } catch (error) {
     console.error(error);
     return res.status(500).send("Server Error");
