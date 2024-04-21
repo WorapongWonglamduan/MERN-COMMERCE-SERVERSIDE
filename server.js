@@ -20,6 +20,9 @@ app.use(cors());
 //localhost:4001/api/
 //#1
 // app.use("/api", require("./routes/api"));
+app.get("/api/test", (req, res) => {
+  return res.send("Hello Worapong");
+});
 
 //#2
 readdirSync("./routes").map((r) => app.use("/api", require("./routes/" + r)));
