@@ -74,7 +74,7 @@ exports.listBy = async (req, res) => {
 };
 
 const handleQuery = async (req, res, text) => {
-  let products = await Product.find({ $text: { $search: text } }).populate(
+  let products = await Product.find({ title: { $regex: text } }).populate(
     "category",
     "_id name"
   );
