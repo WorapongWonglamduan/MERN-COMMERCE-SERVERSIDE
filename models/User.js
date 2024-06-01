@@ -2,6 +2,9 @@ const { required, default: mongoose } = require("mongoose");
 const { ObjectId } = mongoose.Schema;
 const UserSchema = new mongoose.Schema(
   {
+    email: {
+      type: String,
+    },
     username: {
       type: String,
     },
