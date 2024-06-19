@@ -31,5 +31,6 @@ readdirSync("./routes").map((r) => app.use("/api", require("./routes/" + r)));
 
 const port = process.env.PORT;
 app.listen(port, () => {
+  //port
   console.log("Server is running on port " + port);
 });
